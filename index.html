@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Calculadora Digital Responsive | TypeScript</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2326282e'/><text x='50' y='65' font-size='50' font-family='sans-serif' text-anchor='middle' fill='%2364d2ff'>%3D</text></svg>" />
+  <link rel="stylesheet" href="./src/styles/main.css" />
+  <link rel="stylesheet" href="./src/styles/calculator.css" />
+  <link rel="stylesheet" href="./src/styles/buttons.css" />
+</head>
+<body>
+  <main class="app-container">
+    <!-- Contenedor principal de la calculadora -->
+    <div class="calculator" id="calculator" role="region" aria-label="Calculadora Digital">
+      
+      <!-- Pantalla de visualización estilo Azul LCD Retro -->
+      <section class="screen-lcd" id="screen" aria-live="polite">
+        <div class="screen-header">
+          <span class="status-indicator" id="indicator-rad-deg">DEG</span>
+          <span class="status-indicator" id="indicator-memory" style="opacity: 0;">M</span>
+          <div class="sub-display" id="sub-display" aria-label="Operación previa"></div>
+        </div>
+        <div class="main-display" id="main-display" aria-label="Resultado actual">0</div>
+      </section>
+
+      <!-- Panel de botones (Grid adaptable: 4 cols en vertical, 10 cols en horizontal) -->
+      <section class="keypad" id="keypad">
+        
+        <!-- ================= BOTONES CIENTÍFICOS (Visibles en Horizontal / Pantalla ancha) ================= -->
+        <div class="scientific-keys" id="scientific-keys">
+          <!-- Fila 1 Científica -->
+          <button type="button" class="btn btn-sci" data-action="paren-open" aria-label="Paréntesis abrir">(</button>
+          <button type="button" class="btn btn-sci" data-action="paren-close" aria-label="Paréntesis cerrar">)</button>
+          <button type="button" class="btn btn-sci" data-action="mc" aria-label="Borrar memoria">mc</button>
+          <button type="button" class="btn btn-sci" data-action="m+" aria-label="Sumar a memoria">m+</button>
+          <button type="button" class="btn btn-sci" data-action="m-" aria-label="Restar de memoria">m−</button>
+          <button type="button" class="btn btn-sci" data-action="mr" aria-label="Recuperar memoria">mr</button>
+
+          <!-- Fila 2 Científica -->
+          <button type="button" class="btn btn-sci" data-action="2nd" id="btn-2nd" aria-label="Segunda función">2<sup>nd</sup></button>
+          <button type="button" class="btn btn-sci" data-action="square" aria-label="Elevar al cuadrado">x<sup>2</sup></button>
+          <button type="button" class="btn btn-sci" data-action="cube" aria-label="Elevar al cubo">x<sup>3</sup></button>
+          <button type="button" class="btn btn-sci" data-action="pow" aria-label="Potencia x a la y">x<sup>y</sup></button>
+          <button type="button" class="btn btn-sci" data-action="exp" aria-label="Exponencial e a la x">e<sup>x</sup></button>
+          <button type="button" class="btn btn-sci" data-action="tenPow" aria-label="10 a la x">10<sup>x</sup></button>
+
+          <!-- Fila 3 Científica -->
+          <button type="button" class="btn btn-sci" data-action="reciprocal" aria-label="Inverso 1 sobre x">1/x</button>
+          <button type="button" class="btn btn-sci" data-action="sqrt" aria-label="Raíz cuadrada"><sup>2</sup>√x</button>
+          <button type="button" class="btn btn-sci" data-action="cbrt" aria-label="Raíz cúbica"><sup>3</sup>√x</button>
+          <button type="button" class="btn btn-sci" data-action="yroot" aria-label="Raíz y de x"><sup>y</sup>√x</button>
+          <button type="button" class="btn btn-sci" data-action="ln" aria-label="Logaritmo neperiano">ln</button>
+          <button type="button" class="btn btn-sci" data-action="log10" aria-label="Logaritmo decimal">log<sub>10</sub></button>
+
+          <!-- Fila 4 Científica -->
+          <button type="button" class="btn btn-sci" data-action="factorial" aria-label="Factorial">x!</button>
+          <button type="button" class="btn btn-sci" data-action="sin" id="btn-sin" aria-label="Seno">sin</button>
+          <button type="button" class="btn btn-sci" data-action="cos" id="btn-cos" aria-label="Coseno">cos</button>
+          <button type="button" class="btn btn-sci" data-action="tan" id="btn-tan" aria-label="Tangente">tan</button>
+          <button type="button" class="btn btn-sci" data-action="const-e" aria-label="Constante de Euler e">e</button>
+          <button type="button" class="btn btn-sci" data-action="ee" aria-label="Notación científica EE">EE</button>
+
+          <!-- Fila 5 Científica -->
+          <button type="button" class="btn btn-sci btn-toggle" data-action="toggle-angle" id="btn-rad-deg" aria-label="Alternar Radianes y Grados">Rad</button>
+          <button type="button" class="btn btn-sci" data-action="sinh" aria-label="Seno hiperbólico">sinh</button>
+          <button type="button" class="btn btn-sci" data-action="cosh" aria-label="Coseno hiperbólico">cosh</button>
+          <button type="button" class="btn btn-sci" data-action="tanh" aria-label="Tangente hiperbólica">tanh</button>
+          <button type="button" class="btn btn-sci" data-action="const-pi" aria-label="Constante Pi">π</button>
+          <button type="button" class="btn btn-sci" data-action="rand" aria-label="Número aleatorio">Rand</button>
+        </div>
+
+        <!-- ================= BOTONES BÁSICOS (Siempre presentes en 4 columnas) ================= -->
+        <div class="basic-keys" id="basic-keys">
+          <!-- Fila 1 Básica -->
+          <button type="button" class="btn btn-function" data-action="clear" id="btn-clear" aria-label="Borrar o limpiar todo">AC</button>
+          <button type="button" class="btn btn-function" data-action="negate" aria-label="Cambio de signo">±</button>
+          <button type="button" class="btn btn-function" data-action="percent" aria-label="Porcentaje">%</button>
+          <button type="button" class="btn btn-operator" data-action="divide" data-op="/" aria-label="Dividir">÷</button>
+
+          <!-- Fila 2 Básica -->
+          <button type="button" class="btn btn-number" data-digit="7" aria-label="Siete">7</button>
+          <button type="button" class="btn btn-number" data-digit="8" aria-label="Ocho">8</button>
+          <button type="button" class="btn btn-number" data-digit="9" aria-label="Nueve">9</button>
+          <button type="button" class="btn btn-operator" data-action="multiply" data-op="*" aria-label="Multiplicar">×</button>
+
+          <!-- Fila 3 Básica -->
+          <button type="button" class="btn btn-number" data-digit="4" aria-label="Cuatro">4</button>
+          <button type="button" class="btn btn-number" data-digit="5" aria-label="Cinco">5</button>
+          <button type="button" class="btn btn-number" data-digit="6" aria-label="Seis">6</button>
+          <button type="button" class="btn btn-operator" data-action="subtract" data-op="-" aria-label="Restar">−</button>
+
+          <!-- Fila 4 Básica -->
+          <button type="button" class="btn btn-number" data-digit="1" aria-label="Uno">1</button>
+          <button type="button" class="btn btn-number" data-digit="2" aria-label="Dos">2</button>
+          <button type="button" class="btn btn-number" data-digit="3" aria-label="Tres">3</button>
+          <button type="button" class="btn btn-operator" data-action="add" data-op="+" aria-label="Sumar">+</button>
+
+          <!-- Fila 5 Básica -->
+          <button type="button" class="btn btn-number btn-zero" data-digit="0" aria-label="Cero">0</button>
+          <button type="button" class="btn btn-number" data-action="decimal" aria-label="Punto decimal">,</button>
+          <button type="button" class="btn btn-operator btn-equals" data-action="equals" aria-label="Calcular resultado">=</button>
+        </div>
+
+      </section>
+
+      <!-- Barra de utilidades inferior para control de modo y atajos -->
+      <footer class="calculator-footer">
+        <button type="button" class="mode-toggle-btn" id="btn-mode-toggle" title="Alternar modo científico / básico manualmente">
+          <span class="icon">⇄</span> <span class="text">Modo Científico</span>
+        </button>
+        <span class="keyboard-hint" title="Usa tu teclado numérico, Enter, Backspace y Escape">⌨ Atajos de teclado activos</span>
+      </footer>
+
+    </div>
+  </main>
+
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>
