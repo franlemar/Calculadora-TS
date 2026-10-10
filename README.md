@@ -117,33 +117,3 @@ Calculadora_TS/
 │       ├── full_ui_interaction.test.ts # 17 pruebas de integración con DOM y teclado
 │       └── stress_and_security.test.ts # 17 pruebas de casos límite, fuzzing y blindaje
 ```
-
----
-
-## Despliegue en Netlify
-
-El archivo `netlify.toml` en la raíz define el comando de compilación (`npm run build`) y la carpeta de publicación (`dist`).
-
-### Opción 1: Conexión con Repositorio de GitHub
-
-1. Sube el proyecto a tu cuenta de GitHub:
-   ```bash
-   git remote add origin git@github.com:TU_USUARIO/TU_REPOSITORIO.git
-   git push -u origin main
-   ```
-2. Accede a Netlify (app.netlify.com).
-3. Selecciona **Add new site** > **Import an existing project** y elige tu repositorio.
-4. Netlify detectará automáticamente `netlify.toml` con la configuración:
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-5. Pulsa en **Deploy site**. Cada actualización enviada a la rama `main` generará un despliegue automático.
-
-### Opción 2: Despliegue Directo con Netlify Drop
-
-1. Compila el proyecto localmente:
-   ```bash
-   npm run build
-   ```
-2. Accede a `app.netlify.com/drop` en tu navegador.
-3. Arrastra la carpeta `dist` generada a la zona indicada.
-4. El sitio web se publicará de forma inmediata con una URL pública HTTPS.
