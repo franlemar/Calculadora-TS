@@ -5,7 +5,8 @@
 .calculator {
   width: 100%;
   max-width: clamp(300px, 92vw, 390px);
-  max-height: 98dvh;
+  margin: auto;
+  flex-shrink: 0;
   background: var(--chassis-bg);
   border: 1px solid var(--chassis-border);
   border-radius: var(--radius-chassis);
@@ -296,13 +297,12 @@
   }
 
   .calculator {
-    max-height: 98dvh;
     padding: 6px 10px;
     gap: 5px;
   }
 
   .screen-lcd {
-    min-height: 46px;
+    min-height: 44px;
     padding: 4px 10px;
   }
 
@@ -321,14 +321,28 @@
 
 /* 4. Altura ultra compacta (<= 420px) */
 @media (max-height: 420px) {
+  .app-container {
+    padding: 4px;
+  }
+
   .calculator {
     padding: 4px 8px;
     gap: 4px;
+    border-radius: 14px;
   }
 
   .screen-lcd {
-    min-height: 40px;
-    padding: 3px 8px;
+    min-height: 38px;
+    padding: 2px 8px;
+    border-radius: 8px;
+  }
+
+  .screen-header {
+    font-size: 0.62rem;
+  }
+
+  .sub-display {
+    font-size: 0.68rem;
   }
 
   .scientific-keys,
@@ -336,3 +350,27 @@
     gap: 3px;
   }
 }
+
+/* 5. Altura extrema / Zoom 300% (<= 320px) */
+@media (max-height: 320px) {
+  .app-container {
+    padding: 2px;
+  }
+
+  .calculator {
+    padding: 3px 6px;
+    gap: 3px;
+    border-radius: 10px;
+  }
+
+  .screen-lcd {
+    min-height: 32px;
+    padding: 2px 6px;
+  }
+
+  .scientific-keys,
+  .basic-keys {
+    gap: 2px;
+  }
+}
+

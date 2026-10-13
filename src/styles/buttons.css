@@ -19,6 +19,7 @@
   padding: 0;
   width: 100%;
   height: clamp(32px, 7.8vh, 60px); /* Altura adaptativa al viewport vertical */
+  flex-shrink: 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   box-sizing: border-box;
 }
@@ -191,5 +192,59 @@
 
   .btn-zero {
     padding-left: 10px;
+  }
+}
+
+@media (max-height: 380px) {
+  .btn {
+    height: clamp(20px, 6.2vh, 26px);
+    border-radius: 4px;
+  }
+
+  .btn-number {
+    font-size: clamp(0.72rem, 2.1vh, 0.88rem);
+  }
+
+  .btn-operator {
+    font-size: clamp(0.78rem, 2.2vh, 0.95rem);
+  }
+
+  .btn-function {
+    font-size: clamp(0.68rem, 2vh, 0.82rem);
+  }
+
+  .btn-sci {
+    font-size: clamp(0.55rem, 1.6vh, 0.7rem);
+  }
+
+  .btn-zero {
+    padding-left: 8px;
+  }
+}
+
+@media (max-height: 280px) {
+  .btn {
+    height: clamp(18px, 5.8vh, 22px);
+    border-radius: 3px;
+  }
+
+  .btn-number {
+    font-size: clamp(0.65rem, 1.8vh, 0.78rem);
+  }
+
+  .btn-operator {
+    font-size: clamp(0.7rem, 2vh, 0.85rem);
+  }
+
+  .btn-function {
+    font-size: clamp(0.6rem, 1.8vh, 0.72rem);
+  }
+
+  .btn-sci {
+    font-size: clamp(0.5rem, 1.4vh, 0.62rem);
+  }
+
+  .btn-zero {
+    padding-left: 6px;
   }
 }
